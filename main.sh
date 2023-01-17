@@ -3,6 +3,8 @@
 # Initialize op1 variable
 op1=""
 sort="1"
+region=""
+
 
 # Declare arrays for different types of arguments
 op=(-p1 -p2 -p3 -t1 -t2 -t3 -w -h -m)
@@ -13,51 +15,52 @@ sort=(--abr --avl --tab)
 reg_count=0
 sort_count=0
 
-# Iterate through all arguments
+op_values=()
 for x in "$@"
 do
-  # Check if argument is a region argument
-  if [[ " ${reg[@]} " =~ " ${x} " ]]; then
-    # Check if region argument count is greater than or equal to 1
+  if [[ " ${op[@]} " =~ " ${x} " ]]; then
+    if [[ " ${op_values[@]} " =~ " ${x} " ]]; then
+      echo "Error: Duplicate option argument"
+      exit 1
+    fi
+    op_values+=("$x")
+  elif [[ " ${reg[@]} " =~ " ${x} " ]]; then
     if (( reg_count >= 1 )); then
-      # If so, display error message and exit script
       echo "Error: Only one region argument allowed"
       exit 1
     fi
-    # Increment region argument count
     ((reg_count++))
-  # Check if argument is a sort argument
   elif [[ " ${sort[@]} " =~ " ${x} " ]]; then
-    # Check if sort argument count is greater than or equal to 1
     if (( sort_count >= 1 )); then
-      # If so, display error message and exit script
       echo "Error: Only one sort argument allowed"
       exit 1
     fi
-    # Increment sort argument count
     ((sort_count++))
-  # Check if argument is not an option argument
-  elif [[ ! " ${op[@]} " =~ " ${x} " ]]; then
-    # If not, display error message and exit script
+  else
     echo "Error: Wrong argument"
     exit 1
   fi
 done
 
-# Process command line arguments
+
+
+
+
+
+op1_values=()
 while [[ $# -gt 0 ]]
 do
   case "$1" in
     # Set op1 variable based on command line argument
-    -p1) op1="p1";;
-    -p2) op1="p2";;
-    -p3) op1="p3";;
-    -t1) op1="t1";;
-    -t2) op1="t2";;
-    -t3) op1="t3";;
-    -w) op1="wind";;
-    -h) op1="height";;
-    -m) op1="moisture";;
+    -p1) op1_values+=("p1");;
+    -p2) op1_values+=("p2");;
+    -p3) op1_values+=("p3");;
+    -t1) op1_values+=("t1");;
+    -t2) op1_values+=("t2");;
+    -t3) op1_values+=("t3");;
+    -w) op1_values+=("wind");;
+    -h) op1_values+=("height");;
+    -m) op1_values+=("moisture");;
     # Set region variable based on command line argument
     -F) region="France";;
     -G) region="Guyane française";;
@@ -74,7 +77,7 @@ do
 done
 
 # Print op1 variable
-echo "op1 = $op1"
+echo "op1 = $op1_values"
 echo "sort = $sort"
 
 
