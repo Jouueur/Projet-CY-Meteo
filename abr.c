@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include "abr.h"
 
-Arbre *creerarbre(Station *a){
-    Arbre *c = malloc(sizeof(Arbre));
+pabr creerarbre(Station *a){
+    pabrc = malloc(sizeof(Arbre));
     if(c == NULL) exit(1);
     c->elt = a;
 
@@ -14,7 +14,7 @@ Arbre *creerarbre(Station *a){
     return c;
 } 
 
-int recherche(parbre a, int e){
+int recherche(pabr a, int e){
     
     if(a == NULL)return 0;
     else if(a->elt == e)return 1;
@@ -23,7 +23,7 @@ int recherche(parbre a, int e){
 }
 
 
-parbre insertABR(parbre a, int e){
+pabr insertABR(pabr a, int e){
     if(a == NULL){
         a=creerarbre(e);
     }
@@ -41,7 +41,7 @@ int verif(){
 
 }
 
-void infixe(parbre a, int station){
+void infixe(pabr a, int station){
     infixe(a->gauche);
     
     infixe(a->droit);
