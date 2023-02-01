@@ -13,17 +13,17 @@ typedef struct{
     float moy, min, max;
 } Station;
 
-typedef struct abr{
+typedef struct ABR{
     struct Station* elt;
-    struct abr *droit,*gauche;
+    struct ABR *droit,*gauche;
 
-}Arbre;
+} ArbreBR;
 
-typedef Arbre* parbre;
+typedef ABR* pabr;
 
-Arbre *creerarbre(Station *a);
-int recherche(parbre a, int e);
-parbre insertABR(parbre a, int e);
-void infixe(parbre a, int station);
+pabr creerarbre(Station *a);
+int recherche(pabr a, int e);
+pabr insertABR(pabr a, int e);
+void infixe(pabr a, int station);
 
 #endif //ABR_H
