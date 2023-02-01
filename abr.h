@@ -11,11 +11,11 @@
 typedef struct{
     int codes;
     float moy, min, max;
-}Station;
+} Station;
 
-typedef struct Arbre{
+typedef struct abr{
     struct Station* elt;
-    struct Arbre *droit,*gauche;
+    struct abr *droit,*gauche;
 
 }Arbre;
 
