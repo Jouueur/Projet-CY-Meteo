@@ -19,9 +19,9 @@ typedef struct AVL{
     Station* elt;
     struct AVL *droit,*gauche;
 
-}AVL;
+}ArbreVL;
 
-typedef AVL *pavl;
+typedef ArbreVL *pavl;
 
 pavl rotdroite(pavl a);
 pavl rotgauche(pavl a);
