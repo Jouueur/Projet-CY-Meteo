@@ -1,15 +1,9 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "avl.h"
 
-#include <avl.h>
-
-
-// Sort by AVL
-
-typedef struct AVL{
-    int elt,eq;
-    struct AVL *gauche,*droit;
-}AVL;
-
-typedef AVL *pavl;
+#define max(a,b) (a>b ? a : b)
+#define min(a,b) (a<b ? a : b)
 
 pavl creer(int x){
     pavl c = malloc(sizeof(pavl));
@@ -17,17 +11,6 @@ pavl creer(int x){
     c->gauche = NULL;
     c->droit = NULL;
     c->eq = 0;
-}
-
-
-int max(int a, int b){
-    if(a>b)return a;
-    else return b;
-}
-
-int min(int a, int b){
-    if(a<b)return a;
-    else return b;
 }
 
 pavl rotdroite(pavl a){
