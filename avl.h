@@ -9,9 +9,16 @@
 #define AVL_H
 
 
+typedef struct{
+    int codes;
+    float moy, min, max;
+}Station;
+
 typedef struct AVL{
-    int elt,eq;
-    struct AVL *gauche,*droit;
+    int eq;
+    Station* elt;
+    struct AVL *droit,*gauche;
+
 }AVL;
 
 typedef AVL *pavl;
