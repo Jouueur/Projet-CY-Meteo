@@ -1,8 +1,13 @@
-#include <mainc.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+#include <getopt.h>
 
+#include "abr.h"
+#include "avl.h"
 
-
-
+#define MAX_LEN 1024
 
 
 // Les valeurs de retour possibles du programme
@@ -31,17 +36,7 @@ int main()
 exit(SUCCESS);
 }  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdbool.h>
-#include <getopt.h>
 
-
-
-
-
-#define MAX_LEN 1024
 
 int main(){
     FILE* fp = fopen("results.csv", "r");
