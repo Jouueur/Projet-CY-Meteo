@@ -19,7 +19,7 @@ typedef struct ABR{
 
 } ArbreBR;
 
-typedef ABR* pabr;
+typedef ArbreBR* pabr;
 
 pabr creerarbre(Station *a);
 int recherche(pabr a, int e);
