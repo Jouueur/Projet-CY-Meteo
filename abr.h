@@ -21,4 +21,9 @@ typedef struct Arbre{
 
 typedef Arbre* parbre;
 
+Arbre *creerarbre(Station *a);
+int recherche(parbre a, int e);
+parbre insertABR(parbre a, int e);
+void infixe(parbre a, int station);
+
 #endif //ABR_H
