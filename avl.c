@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "avl.h"
-#include "global_defs.h"
+
 
 pavl creer(Station x){
-    pavl c = malloc(sizeof(pavl));
+    pavl c = malloc(sizeof(pavl)*6);
     c->elt.codes = x.codes;
     c->elt.avg = x.avg;
     c->elt.min = x.min;
@@ -93,10 +93,10 @@ pavl insertAVL(pavl a, Station st, int* h){
     return a;
 }
 
-void duplicateAVL(pavl a, Station val){
-    
+pavl duplicateAVL(pavl a, Station val){
+    int h = 0;
     if (a == NULL){
-        insertAVL(a,val,0);
+        return insertAVL(a,val,&h);
     }
         
     else if (a->elt.codes == val.codes){
@@ -106,20 +106,18 @@ void duplicateAVL(pavl a, Station val){
         if(a->elt.min > val.avg ) a->elt.min = val.avg;
         if(a->elt.max < val.avg ) a->elt.max = val.avg;
         
-        // moyenne challah
-       
+        // moyenne challah     
     } 
-
-        
+       
     else if (a->elt.codes > val.codes)
-        duplicateAVL (a->gauche,val);
+        return insertAVL(duplicateAVL(a->gauche,val),a->elt,&h);
     else if (a->elt.codes < val.codes)
-        duplicateAVL (a->droit,val);
+        return insertAVL(duplicateAVL(a->droit,val),a->elt,&h);
 }
 
 
 void infixeAVL(pavl a, FILE* fp){
-    if (a == NULL){
+    if (a != NULL){
         infixeAVL(a->gauche,fp);
         fprintf(fp, "%d, %f, %f, %f\n", a->elt.codes, a->elt.avg, a->elt.min, a->elt.max);
         infixeAVL(a->droit,fp);
