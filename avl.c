@@ -1,16 +1,26 @@
-#include <stdio.h>
-#include <stdlib.h>
+
 #include "avl.h"
 
-#define max(a,b) (a>b ? a : b)
-#define min(a,b) (a<b ? a : b)
 
-pavl creer(int x){
+// Sort by AVL
+
+pavl creer(struct Station x){
     pavl c = malloc(sizeof(pavl));
     c->elt = x;
     c->gauche = NULL;
     c->droit = NULL;
     c->eq = 0;
+}
+
+
+int max(int a, int b){
+    if(a>b)return a;
+    else return b;
+}
+
+int min(int a, int b){
+    if(a<b)return a;
+    else return b;
 }
 
 pavl rotdroite(pavl a){
@@ -58,20 +68,21 @@ pavl equilibrer(pavl a){
         if(a->gauche->eq <= 0)return rotdroite(a);
         else return doubled(a);
     }
+    
 }
 
 
 
-pavl insertAVL(pavl a, int e, int* h){
+pavl insertAVL(pavl a, struct Station st, int* h){
     if(a==NULL){
         *h=1;
-        return creer(e);
+        return creer(st);
     }
-    else if(e < a->elt){
-        a->gauche = insertAVL(a->gauche,e,h);
+    else if(st.codes < a->elt.codes){
+        a->gauche = insertAVL(a->gauche,st,h);
         *h = -*h;
     }
-    else if(e > a->elt)a->gauche = insertAVL(a->droit,e,h);
+    else if(st.codes > a->elt.codes)a->gauche = insertAVL(a->droit,st,h);
     else {
         *h=0;
         return a;
@@ -84,3 +95,40 @@ pavl insertAVL(pavl a, int e, int* h){
     }
     return a;
 }
+
+
+
+
+
+void duplicate(pavl a, struct Station val){
+    
+    if (a == NULL){
+        insertAVL(a,val,0);
+    }
+        
+    else if (a->elt.codes == val.codes){
+        if(a->elt.min > val.min && val.min != 0.000000) a->elt.min = val.min;
+        if(a->elt.max < val.max && val.max != 0.000000) a->elt.max = val.max;
+
+        if(a->elt.min > val.avg ) a->elt.min = val.avg;
+        if(a->elt.max < val.avg ) a->elt.max = val.avg;
+        
+        // moyenne challah
+       
+    } 
+
+        
+    else if (a->elt.codes > val.codes)
+        duplicate (a->gauche,val);
+    else if (a->elt.codes < val.codes)
+        duplicate (a->droit,val);
+}
+
+
+void infixe(pavl a, FILE* fp){
+  infixe(a->gauche,fp);
+  fprintf(fp, "%d, %f, %f, %f\n", a->elt.codes, a->elt.avg, a->elt.min, a->elt.max);
+  infixe(a->droit,fp);
+}
+
+
