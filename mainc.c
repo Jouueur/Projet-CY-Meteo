@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <getopt.h>
-#include "avl.h"
 #include "abr.h"
 #include "global_defs.h"
 
@@ -41,8 +40,8 @@ exit(SUCCESS);
 #define MAX_LEN 1024
 
 // Choose a sort method
-#define AVL_METHOD
-//#define ABR_METHOD
+//#define AVL_METHOD
+#define ABR_METHOD
 
 
 #ifdef AVL_METHOD
@@ -53,9 +52,9 @@ exit(SUCCESS);
 
 
 int main(){
-    
-    FILE* fp = fopen("results.csv", "r");
-  
+
+    FILE* fp = fopen("step_1.csv", "r");
+
     if (!fp)
         printf("[ERROR] Can't open file\n");
 
@@ -72,6 +71,11 @@ int main(){
         pabr a = NULL;
 #endif
 
+        float avg;
+        float min;
+        float max;
+        int code;
+
         while (fgets(buffer,MAX_LEN, fp)) {
             column = 0;
             row++;
@@ -81,21 +85,18 @@ int main(){
 
             char* value = strtok(buffer, ", ");
 
-           
-            float avg=0;
-            float min=0;
-            float max=0;
-            int code=0;
 
             while (value) {
 
                 switch (column) {
                     case 0 :
                         code=atoi(value);
-                        //printf("[INFO] Column 1 %d  ", atoi(value));
+                        //printf("[INFO] Column 1 %d  ", code);
                         break;
                     case 1 :
                         avg=atof(value);
+                        min = avg;
+                        max = avg;
                         //printf("[INFO] Column 2 %f  ", atof(value));
                         break;
                     case 2 :
@@ -110,34 +111,34 @@ int main(){
                         printf("[ERROR] Swtich");
                         break;
                 }
-              value = strtok(NULL, ", ");
-              column++;
+                value = strtok(NULL, ", ");
+                column++;
             }
 
             Station st = {
-              .codes = code,
-              .avg = avg,
-              .min = min,
-              .max = max,
+                    .codes = code,
+                    .avg = avg,
+                    .min = min,
+                    .max = max,
             };
 
 #ifdef AVL_METHOD
-            duplicateAVL(a,st);
+            a = insertAVL(a,st);
 #endif
 
 #ifdef ABR_METHOD
-            duplicateABR(a,st);
+            a = insertABR(a,st);
 #endif
 
-            printf("\n");
+            //printf("\n");
         }
 
         fclose(fp);
 
-        FILE* fp_step2 = fopen("step_2.csv", "a+");
+        FILE* fp_step2 = fopen("step_2.csv", "w+");
         if (!fp_step2 ) {
-          printf("Can't open file\n");
-          return 0;
+            printf("Can't open file\n");
+            return 0;
         }
 
 #ifdef AVL_METHOD
@@ -153,4 +154,3 @@ int main(){
     }
     return 0;
 }
-
