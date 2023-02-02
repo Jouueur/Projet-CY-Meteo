@@ -51,7 +51,7 @@ pavl doubleg(pavl a){
     return rotgauche(a);
 }
 
-pavl doubled(pavl a){          
+pavl doubled(pavl a){
     a->gauche = rotgauche(a->gauche);
     return rotdroite(a);
 }
@@ -74,7 +74,16 @@ pavl insertAVL(pavl a, Station st, int* h){
     if(a==NULL){
         *h=1;
         return creer(st);
+    } else if (a->elt.codes == st.codes){
+        if(a->elt.min > st.min && st.min != 0.000000) a->elt.min = st.min;
+        if(a->elt.max < st.max && st.max != 0.000000) a->elt.max = st.max;
+
+        if(a->elt.min > st.avg ) a->elt.min = st.avg;
+        if(a->elt.max < st.avg ) a->elt.max = st.avg;
+
+        // moyenne challah
     }
+
     else if(st.codes < a->elt.codes){
         a->gauche = insertAVL(a->gauche,st,h);
         *h = -*h;
@@ -93,29 +102,6 @@ pavl insertAVL(pavl a, Station st, int* h){
     return a;
 }
 
-pavl duplicateAVL(pavl a, Station val){
-    int h = 0;
-    if (a == NULL){
-        return insertAVL(a,val,&h);
-    }
-        
-    else if (a->elt.codes == val.codes){
-        if(a->elt.min > val.min && val.min != 0.000000) a->elt.min = val.min;
-        if(a->elt.max < val.max && val.max != 0.000000) a->elt.max = val.max;
-
-        if(a->elt.min > val.avg ) a->elt.min = val.avg;
-        if(a->elt.max < val.avg ) a->elt.max = val.avg;
-        
-        // moyenne challah     
-    } 
-       
-    else if (a->elt.codes > val.codes)
-        return insertAVL(duplicateAVL(a->gauche,val),a->elt,&h);
-    else if (a->elt.codes < val.codes)
-        return insertAVL(duplicateAVL(a->droit,val),a->elt,&h);
-}
-
-
 void infixeAVL(pavl a, FILE* fp){
     if (a != NULL){
         infixeAVL(a->gauche,fp);
@@ -124,5 +110,3 @@ void infixeAVL(pavl a, FILE* fp){
     }
 
 }
-
-
