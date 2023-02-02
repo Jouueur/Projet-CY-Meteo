@@ -7,8 +7,8 @@ pabr creerABR(Station a){
     pabr c = malloc(sizeof(pabr)*6);
     if(c == NULL) exit(1);
     c->elt = a;
-    c->droit = NULL;
-    c->gauche = NULL;
+    c->right = NULL;
+    c->left = NULL;
 
     return c;
 }
@@ -31,10 +31,10 @@ pabr insertABR(pabr a, Station st){
     }
 
     else if(a->elt.codes > st.codes){
-        a->gauche = insertABR(a->gauche,st);
+        a->left = insertABR(a->left,st);
     }
     else if(a->elt.codes < st.codes){
-        a->droit = insertABR(a->droit,st);
+        a->right = insertABR(a->right,st);
     }
     return a;
 }
@@ -42,16 +42,16 @@ pabr insertABR(pabr a, Station st){
 
 void infixeABR(pabr a, FILE* fp){
     if (a != NULL){
-        infixeABR(a->gauche,fp);
+        infixeABR(a->left,fp);
         fprintf(fp, "%d, %f, %f, %f\n", a->elt.codes, a->elt.avg, a->elt.min, a->elt.max);
-        infixeABR(a->droit,fp);
+        infixeABR(a->right,fp);
     }
 
 }
 
 void freeABR(pabr root) {
     if (root == NULL) return;
-    freeABR(root->gauche);
-    freeABR(root->droit);
+    freeABR(root->left);
+    freeABR(root->right);
     free(root);
 }
