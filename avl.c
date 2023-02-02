@@ -9,8 +9,8 @@ pavl creer(Station x){
     c->elt.avg = x.avg;
     c->elt.min = x.min;
     c->elt.max = x.max;
-    c->gauche = NULL;
-    c->droit = NULL;
+    c->left = NULL;
+    c->right = NULL;
     c->eq = 0;
     return c;
 }
@@ -26,43 +26,43 @@ int min(int a, int b){
     else return b;
 }
 
-pavl rotdroite(pavl A){
+pavl rotrighte(pavl A){
     pavl B; int a,b;
-    B = A->gauche;
+    B = A->left;
     a = A->eq; b = B->eq;
-    A->gauche = B->droit; B->droit = A; /* rotation */
+    A->left = B->right; B->right = A; /* rotation */
     A->eq = a-min(b,0)+1;
     B->eq = max(max(a+2,a+b+2),b+1);
     return B;
 }
 
-pavl rotgauche(pavl A){
+pavl rotleft(pavl A){
     pavl B; int a,b;
-    B = A->droit;
+    B = A->right;
     a = A->eq; b = B->eq;
-    A->droit = B->gauche; B->gauche = A; /* rotation */
+    A->right = B->left; B->left = A; /* rotation */
     A->eq = a-max(b,0)-1;
     B->eq = min(min(a-2,a+b-2),b-1);
     return B;
 }
 
 pavl doubleg(pavl a){
-    a->droit = rotdroite(a->droit);
-    return rotgauche(a);
+    a->right = rotrighte(a->right);
+    return rotleft(a);
 }
 
 pavl doubled(pavl a){
-    a->gauche = rotgauche(a->gauche);
-    return rotdroite(a);
+    a->left = rotleft(a->left);
+    return rotrighte(a);
 }
 
 pavl equilibrer(pavl a){
     if(a->eq >= 2){
-        if(a->droit->eq >= 0) return rotgauche(a);
+        if(a->right->eq >= 0) return rotleft(a);
         else return doubleg(a);
     }
     else if(a->eq <= -2){
-        if(a->gauche->eq <= 0) return rotdroite(a);
+        if(a->left->eq <= 0) return rotrighte(a);
         else return doubled(a);
     }
     return NULL;
@@ -85,10 +85,10 @@ pavl insertAVL(pavl a, Station st, int* h){
     }
 
     else if(st.codes < a->elt.codes){
-        a->gauche = insertAVL(a->gauche,st,h);
+        a->left = insertAVL(a->left,st,h);
         *h = -*h;
     }
-    else if(st.codes > a->elt.codes)a->gauche = insertAVL(a->droit,st,h);
+    else if(st.codes > a->elt.codes)a->left = insertAVL(a->right,st,h);
     else {
         *h=0;
         return a;
@@ -104,9 +104,9 @@ pavl insertAVL(pavl a, Station st, int* h){
 
 void infixeAVL(pavl a, FILE* fp){
     if (a != NULL){
-        infixeAVL(a->gauche,fp);
+        infixeAVL(a->left,fp);
         fprintf(fp, "%d, %f, %f, %f\n", a->elt.codes, a->elt.avg, a->elt.min, a->elt.max);
-        infixeAVL(a->droit,fp);
+        infixeAVL(a->right,fp);
     }
 
 }
