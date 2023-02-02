@@ -1,0 +1,57 @@
+➢ Script arguments and options [Data TYPE]:
+
+    The script should process one or more data types such as temperature (associated option -t), atmospheric pressure (associated option -p), wind (associated option -w), humidity (associated option -m), or altitude of each station (associated option -h).
+
+    At least one of these options must be chosen for the script to work. Otherwise, an error message should be displayed.
+
+    It is possible to activate several options: there is no particular limitation at this level.
+
+    Options -t and -p must be accompanied by a mode:
+    -t<mode>: (t)emperatures.
+    -p<mode>: (p) atmospheric pressures.
+
+    For these 2 options, you must indicate the value of <mode>:
+
+    1: outputs the minimum, maximum, and average temperatures (or pressures) by station in ascending order of the station number.
+
+    2: outputs the average temperatures (or pressures) by date/time, sorted in chronological order. The average is made over all stations.
+
+    3: outputs the temperatures (or pressures) by date/time by station. They will be sorted first by chronological order and then by ascending order of the station ID.
+
+    The option -w: wind ((w)ind)
+    outputs the average orientation and average wind speed for each station. When we talk about average, it will be to sum up each component of the vector and average it once all vectors have been processed. So we will have an average on the X axis and an average on the Y axis: the 2 results providing the average module and orientation requested. The data will be sorted by ascending station ID.
+
+    The option -h: altitude ((h)eight).
+    Outputs the altitude for each station. The altitudes will be sorted in descending order.
+
+    The option -m: humidity ((m)oisture).
+    Outputs the maximum humidity for each station. The humidity values will be sorted in descending order.
+
+➢ Script arguments and options [LOCATIONS]:
+
+    The script should allow filtering data on additional criteria such as the geographic position of the measurements.
+
+    These options are exclusive to each other. This means that only one option can be activated at a time.
+
+    These options are not mandatory: if none are activated, there will be no geographic limitation on the processed measurements.
+
+    The list of geographic limitation options is as follows:
+
+    option -F: (F)rance: Metropolitan France + Corsica.
+
+    option -G: (G) French Guiana.
+
+    option -S: (S)aint-Pierre et Miquelon: island located east of Canada
+
+    option -A: (A)ntilles.
+
+    option -O: (O) Indian Ocean.
+
+    option -Q: Antarctic (Q).
+
+➢ Script arguments and options [DATES]:
+
+    It is possible to indicate a time interval to filter measurement data. Only the measurements in the time interval will be processed.
+    This option is not mandatory: there will be no temporal limitation on the processed measurements.
+    -d <min> <max>: (d)ates
+    the measurement data between the minimum and maximum dates will be processed. The dates must be indicated in the format: "YYYY-MM-DD".
