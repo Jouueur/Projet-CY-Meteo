@@ -1,5 +1,7 @@
 #!/bin/bash 
 
+
+
 sort="1"
 region=""
 f_count=0
@@ -14,7 +16,7 @@ reg_count=0
 sort_count=0
 count=0
 
-f_flag=0
+f_finder=0
 
 op_values=()
 for x in "$@"
@@ -44,15 +46,15 @@ do
   elif [[ $x == "-f" ]]; then
     # Set the flag if -f option is encountered 
     ((f_count++))
-    f_flag=1
+    f_finder=1
     
   
-    elif [[ $f_flag -eq 1 ]]; then
+    elif [[ $f_finder -eq 1 ]]; then
       # Check if the next argument after -f is a csv file
       if [[ $x == *.csv ]]; then
         file=$x
         # Reset the flag
-        f_flag=0
+        f_finder=0
       else
         echo "Error: Argument after -f is not a csv file"
         exit 1
@@ -70,7 +72,7 @@ done
 
 
 # Check if the -f option was not followed by a csv file
-if [[ $f_flag -eq 1 ]]; then
+if [[ $f_finder -eq 1 ]]; then
   echo "Error: -f option must be followed by a csv file"
   exit 1
 fi
@@ -124,3 +126,8 @@ do
   ./sender.sh $region $x $file
   op1_values=( "${op1_values[@]:1}" )
 done
+
+
+
+
+
