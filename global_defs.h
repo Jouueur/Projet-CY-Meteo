@@ -17,3 +17,4 @@ typedef struct sta Station;
 
 
 #endif //GLOBAL_DEFS_H
+
