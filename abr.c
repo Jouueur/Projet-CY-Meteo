@@ -37,12 +37,3 @@ pabr insertABR(pabr a, int e){
 }
 
 
-int verif(){
-
-}
-
-void infixe(pabr a, int station){
-    infixe(a->gauche);
-    
-    infixe(a->droit);
-}
