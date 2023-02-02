@@ -3,12 +3,16 @@
 #include "avl.h"
 
 
-pavl creer(struct Station x){
+pavl creer(Station x){
     pavl c = malloc(sizeof(pavl));
-    c->elt = x;
+    c->elt.codes = x.codes;
+    c->elt.avg = x.avg;
+    c->elt.min = x.min;
+    c->elt.max = x.max;
     c->gauche = NULL;
     c->droit = NULL;
     c->eq = 0;
+    return c;
 }
 
 
@@ -22,30 +26,24 @@ int min(int a, int b){
     else return b;
 }
 
-pavl rotdroite(pavl a){
-    pavl pivot;
-    int ea,ep;
-    pivot = a->gauche;
-    a->gauche = pivot->droit;
-    pivot->droit = a;
-    ea = a->eq;
-    ep = pivot->eq;
-    a->eq = ea - min(ep,0) + 1;
-    pivot->eq = max(max(ea+2,ep+ea+2),ep+1);
-    a = pivot;
+pavl rotdroite(pavl A){
+    pavl B; int a,b;
+    B = A->gauche;
+    a = A->eq; b = B->eq;
+    A->gauche = B->droit; B->droit = A; /* rotation */
+    A->eq = a-min(b,0)+1;
+    B->eq = max(max(a+2,a+b+2),b+1);
+    return B;
 }
 
-pavl rotgauche(pavl a){
-    pavl pivot;
-    int ea,ep;
-    pivot = a->droit;
-    a->droit = pivot->gauche;
-    pivot->gauche = a;
-    ea = a->eq;
-    ep = pivot->eq;
-    a->eq = ea - max(ep,0) - 1;
-    pivot->eq = min(min(ea-2,ep+ea-2),ep-1);
-    a = pivot;
+pavl rotgauche(pavl A){
+    pavl B; int a,b;
+    B = A->droit;
+    a = A->eq; b = B->eq;
+    A->droit = B->gauche; B->gauche = A; /* rotation */
+    A->eq = a-max(b,0)-1;
+    B->eq = min(min(a-2,a+b-2),b-1);
+    return B;
 }
 
 pavl doubleg(pavl a){
@@ -60,19 +58,19 @@ pavl doubled(pavl a){
 
 pavl equilibrer(pavl a){
     if(a->eq >= 2){
-        if(a->droit->eq >= 0)return rotgauche(a);
+        if(a->droit->eq >= 0) return rotgauche(a);
         else return doubleg(a);
     }
     else if(a->eq <= -2){
-        if(a->gauche->eq <= 0)return rotdroite(a);
+        if(a->gauche->eq <= 0) return rotdroite(a);
         else return doubled(a);
     }
-    
+    return NULL;
 }
 
 
 
-pavl insertAVL(pavl a, struct Station st, int* h){
+pavl insertAVL(pavl a, Station st, int* h){
     if(a==NULL){
         *h=1;
         return creer(st);
@@ -95,7 +93,7 @@ pavl insertAVL(pavl a, struct Station st, int* h){
     return a;
 }
 
-void duplicate(pavl a, struct Station val){
+void duplicate(pavl a, Station val){
     
     if (a == NULL){
         insertAVL(a,val,0);

@@ -41,7 +41,7 @@ exit(SUCCESS);
 int main(){
     
     FILE* fp = fopen("results.csv", "r");
-    pavl a;
+    pavl a = NULL;
   
     if (!fp)
         printf("[ERROR] Can't open file\n");
@@ -73,15 +73,21 @@ int main(){
                     case 0 :
                         code=atoi(value);
                         //printf("[INFO] Column 1 %d  ", atoi(value));
+                        break;
                     case 1 :
                         avg=atof(value);
                         //printf("[INFO] Column 2 %f  ", atof(value));
+                        break;
                     case 2 :
                         min=atof(value);
                         //printf("[INFO] Column 3 %f  ", atof(value));
+                        break;
                     case 3 :
                         max=atof(value);
                         //printf("[INFO] Column 4 %f  ", atof(value));
+                        break;
+                    default:
+                        printf("[ERROR] Swtich");
                 }
 
               
@@ -90,7 +96,7 @@ int main(){
               column++;
             }
 
-            struct Station st = {
+            Station st = {
               .codes = code,
               .avg = avg,
               .min = min,
