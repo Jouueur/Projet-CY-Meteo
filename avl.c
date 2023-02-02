@@ -93,7 +93,7 @@ pavl insertAVL(pavl a, Station st, int* h){
     return a;
 }
 
-void duplicate(pavl a, Station val){
+void duplicateAVL(pavl a, Station val){
     
     if (a == NULL){
         insertAVL(a,val,0);
@@ -112,16 +112,19 @@ void duplicate(pavl a, Station val){
 
         
     else if (a->elt.codes > val.codes)
-        duplicate (a->gauche,val);
+        duplicateAVL (a->gauche,val);
     else if (a->elt.codes < val.codes)
-        duplicate (a->droit,val);
+        duplicateAVL (a->droit,val);
 }
 
 
-void infixe(pavl a, FILE* fp){
-  infixe(a->gauche,fp);
-  fprintf(fp, "%d, %f, %f, %f\n", a->elt.codes, a->elt.avg, a->elt.min, a->elt.max);
-  infixe(a->droit,fp);
+void infixeAVL(pavl a, FILE* fp){
+    if (a == NULL){
+        infixeAVL(a->gauche,fp);
+        fprintf(fp, "%d, %f, %f, %f\n", a->elt.codes, a->elt.avg, a->elt.min, a->elt.max);
+        infixeAVL(a->droit,fp);
+    }
+
 }
 
 

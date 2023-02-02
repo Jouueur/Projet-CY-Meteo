@@ -3,6 +3,7 @@
 #include <string.h>
 #include <getopt.h>
 #include "avl.h"
+#include "abr.h"
 
 // Les valeurs de retour possibles du programme
 /*enum {
@@ -103,7 +104,7 @@ int main(){
               .max = max,
             };
 
-            duplicate(a,st);            
+            duplicateAVL(a,st);
 
             printf("\n");
         }
@@ -115,7 +116,7 @@ int main(){
           printf("Can't open file\n");
           return 0;
         }
-        infixe(a, fp_step2 );
+        infixeAVL(a, fp_step2 );
 
         fclose(fp_step2 );
 

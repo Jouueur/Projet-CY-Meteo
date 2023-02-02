@@ -10,19 +10,20 @@
 
 struct Station{
     int codes;
-    float moy, min, max;
-} ;
+    float avg, min, max;
+};
 
 typedef struct ABR{
     struct Station elt;
-    struct ABR *droit,*gauche;
-
+    struct ABR *droit;
+    struct ABR *gauche;
 } ArbreBR;
 
 typedef ArbreBR* pabr;
 
-pabr creerABR(Station *a);
-pabr insertABR(pabr a, int e);
-void infixe(pabr a, FILE* fp);
+pabr creerABR(struct Station a);
+pabr insertABR(pabr a, struct Station e);
+void duplicateABR(pabr a, struct Station val);
+void infixeABR(pabr a, FILE* fp);
 
 #endif //ABR_H

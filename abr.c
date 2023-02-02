@@ -26,7 +26,7 @@ pabr insertABR(pabr a, struct Station st){
     return a;
 }
 
-void duplicate(pabr a, struct Station val){
+void duplicateABR(pabr a, struct Station val){
 
     if (a == NULL){
         a = insertABR(a,val);
@@ -45,17 +45,20 @@ void duplicate(pabr a, struct Station val){
 
 
     else if (a->elt.codes > val.codes)
-        duplicate (a->gauche,val);
+        duplicateABR (a->gauche,val);
     else if (a->elt.codes < val.codes)
-        duplicate (a->droit,val);
+        duplicateABR (a->droit,val);
 }
 
 
 
-void infixe(pabr a, FILE* fp){
-    infixe(a->gauche,fp);
-    fprintf(fp, "%d, %f, %f, %f\n", a->elt.codes, a->elt.avg, a->elt.min, a->elt.max);
-    infixe(a->droit,fp);
+void infixeABR(pabr a, FILE* fp){
+    if (a == NULL){
+        infixeABR(a->gauche,fp);
+        fprintf(fp, "%d, %f, %f, %f\n", a->elt.codes, a->elt.avg, a->elt.min, a->elt.max);
+        infixeABR(a->droit,fp);
+    }
+
 }
 
 

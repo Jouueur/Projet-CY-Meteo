@@ -29,8 +29,8 @@ pavl rotgauche(pavl a);
 pavl doubleg(pavl a);
 pavl doubled(pavl a);
 pavl equilibrer(pavl a);
-void duplicate(pavl a, Station val);
+void duplicateAVL(pavl a, Station val);
 pavl insertAVL(pavl a, Station st, int* h);
-void infixe(pavl a, FILE* fp);
+void infixeAVL(pavl a, FILE* fp);
 
 #endif //AVL_H
