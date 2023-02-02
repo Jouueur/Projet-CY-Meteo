@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "avl.h"
-
+#include "global_defs.h"
 
 pavl creer(Station x){
     pavl c = malloc(sizeof(pavl));

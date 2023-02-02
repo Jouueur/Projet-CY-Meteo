@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "abr.h"
+#include "global_defs.h"
 
-pabr creerABR(struct Station a){
+pabr creerABR(Station a){
     pabr c = malloc(sizeof(pabr));
     if(c == NULL) exit(1);
     c->elt = a;
@@ -13,7 +14,7 @@ pabr creerABR(struct Station a){
 }
 
 
-pabr insertABR(pabr a, struct Station st){
+pabr insertABR(pabr a, Station st){
     if(a == NULL){
         a=creerABR(st);
     }
@@ -26,7 +27,7 @@ pabr insertABR(pabr a, struct Station st){
     return a;
 }
 
-void duplicateABR(pabr a, struct Station val){
+void duplicateABR(pabr a, Station val){
 
     if (a == NULL){
         a = insertABR(a,val);

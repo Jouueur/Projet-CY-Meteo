@@ -7,13 +7,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
-struct sta{
-    int codes;
-    float avg, min, max;
-};
-
-typedef struct sta Station;
+#include "global_defs.h"
 
 typedef struct AVL{
     int eq;

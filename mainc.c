@@ -4,6 +4,7 @@
 #include <getopt.h>
 #include "avl.h"
 #include "abr.h"
+#include "global_defs.h"
 
 // Les valeurs de retour possibles du programme
 /*enum {
@@ -39,10 +40,21 @@ exit(SUCCESS);
 
 #define MAX_LEN 1024
 
+// Choose a sort method
+#define AVL_METHOD
+//#define ABR_METHOD
+
+
+#ifdef AVL_METHOD
+#if defined(ABR_METHOD)
+#error "Only one method may be defined (AVL_METHOD already defined)"
+#endif
+#endif
+
+
 int main(){
     
     FILE* fp = fopen("results.csv", "r");
-    pavl a = NULL;
   
     if (!fp)
         printf("[ERROR] Can't open file\n");
@@ -52,6 +64,13 @@ int main(){
 
         int row = 0;
         int column = 0;
+
+#ifdef AVL_METHOD
+        pavl a = NULL;
+#endif
+#ifdef ABR_METHOD
+        pabr a = NULL;
+#endif
 
         while (fgets(buffer,MAX_LEN, fp)) {
             column = 0;
@@ -89,10 +108,8 @@ int main(){
                         break;
                     default:
                         printf("[ERROR] Swtich");
+                        break;
                 }
-
-              
-
               value = strtok(NULL, ", ");
               column++;
             }
@@ -104,7 +121,13 @@ int main(){
               .max = max,
             };
 
+#ifdef AVL_METHOD
             duplicateAVL(a,st);
+#endif
+
+#ifdef ABR_METHOD
+            duplicateABR(a,st);
+#endif
 
             printf("\n");
         }
@@ -116,9 +139,16 @@ int main(){
           printf("Can't open file\n");
           return 0;
         }
-        infixeAVL(a, fp_step2 );
 
-        fclose(fp_step2 );
+#ifdef AVL_METHOD
+        infixeAVL(a, fp_step2);
+#endif
+
+#ifdef ABR_METHOD
+        infixeABR(a, fp_step2);
+#endif
+
+        fclose(fp_step2);
 
     }
     return 0;

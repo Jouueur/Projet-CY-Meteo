@@ -7,23 +7,19 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
-struct Station{
-    int codes;
-    float avg, min, max;
-};
+#include "global_defs.h"
 
 typedef struct ABR{
-    struct Station elt;
+    Station elt;
     struct ABR *droit;
     struct ABR *gauche;
 } ArbreBR;
 
 typedef ArbreBR* pabr;
 
-pabr creerABR(struct Station a);
-pabr insertABR(pabr a, struct Station e);
-void duplicateABR(pabr a, struct Station val);
+pabr creerABR(Station a);
+pabr insertABR(pabr a, Station e);
+void duplicateABR(pabr a, Station val);
 void infixeABR(pabr a, FILE* fp);
 
 #endif //ABR_H
