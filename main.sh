@@ -1,7 +1,5 @@
 #!/bin/bash 
 
-
-
 sort="1"
 region=""
 f_count=0
@@ -126,11 +124,3 @@ do
   ./sender.sh $region $x $file
   op1_values=( "${op1_values[@]:1}" )
 done
-
-
-
-
-
-
-
-echo $region
