@@ -9,25 +9,28 @@
 #define AVL_H
 
 
-typedef struct{
+struct Station{
     int codes;
-    float moy, min, max;
-}Station;
+    float avg, min, max;
+};
 
 typedef struct AVL{
     int eq;
-    Station* elt;
+    struct Station elt;
     struct AVL *droit,*gauche;
 
 }ArbreVL;
 
 typedef ArbreVL *pavl;
 
+
 pavl rotdroite(pavl a);
 pavl rotgauche(pavl a);
-pavl doubleg(pavl a);
-pavl doubled(pavl a);
+void doubleg(pavl a);
+void doubled(pavl a);
 pavl equilibrer(pavl a);
-pavl insertAVL(pavl a, int e, int* h);
+void duplicate(pavl a, struct Station val);
+pavl insertAVL(pavl a, struct Station st, int* h);
+void infixe(pavl a, FILE* fp);
 
 #endif //AVL_H
