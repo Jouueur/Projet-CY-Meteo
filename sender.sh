@@ -27,10 +27,10 @@ elif [ "$temp_option" == "t1" ]; then
   param3=13
   param4=14
 elif [ "$temp_option" == "t2" ]; then
-  param1=12
-  param2=13
-  param3=14
-  param4=1
+  param1=2
+  param2=12
+  param3=20
+  param4=21
 elif [ "$temp_option" == "t3" ]; then
   param1=12
   param2=13
@@ -91,3 +91,4 @@ fi
 
 #gcc -o mainc mainc.c
 #./mainc
+
