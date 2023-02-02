@@ -12,7 +12,7 @@
 typedef struct AVL{
     int eq;
     Station elt;
-    struct AVL *droit,*gauche;
+    struct AVL *right,*left;
 }ArbreVL;
 
 typedef ArbreVL *pavl;
