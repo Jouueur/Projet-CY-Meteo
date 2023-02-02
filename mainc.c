@@ -3,12 +3,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <getopt.h>
-
-#include "abr.h"
 #include "avl.h"
-
-#define MAX_LEN 1024
-
 
 // Les valeurs de retour possibles du programme
 /*enum {
@@ -38,9 +33,17 @@ exit(SUCCESS);
 
 
 
-int main(){
-    FILE* fp = fopen("results.csv", "r");
 
+
+
+
+#define MAX_LEN 1024
+
+int main(){
+    
+    FILE* fp = fopen("results.csv", "r");
+    pavl a;
+  
     if (!fp)
         printf("[ERROR] Can't open file\n");
 
@@ -59,27 +62,59 @@ int main(){
 
             char* value = strtok(buffer, ", ");
 
+           
+            int avg=0;
+            int min=0;
+            int max=0;
+            int code=0;
+
             while (value) {
+
               switch (column) {
                 case 0 :
-                  printf("[INFO] Column 1 %d  ", atoi(value));
+                  code=atoi(value);
+                  //printf("[INFO] Column 1 %d  ", atoi(value));
                 case 1 :
-                  printf("[INFO] Column 2 %f  ", atof(value));
+                  avg=atof(value);
+                  //printf("[INFO] Column 2 %f  ", atof(value));
                 case 2 :
-                  printf("[INFO] Column 3 %f  ", atof(value));
+                  min=atof(value);
+                  //printf("[INFO] Column 3 %f  ", atof(value));
                 case 3 :
-                  printf("[INFO] Column 4 %f  ", atof(value));
-                }
-               
+                  max=atof(value);
+                  //printf("[INFO] Column 4 %f  ", atof(value));
+              }
 
-                value = strtok(NULL, ", ");
-                column++;
+              
+
+              value = strtok(NULL, ", ");
+              column++;
             }
+
+            struct Station st = {
+              .codes = code,
+              .avg = avg,
+              .min = min,
+              .max = max,
+            };
+
+            duplicate(a,st);            
 
             printf("\n");
         }
 
         fclose(fp);
+
+        FILE* fp_step2 = fopen("step_2.csv", "a+");
+        if (!fp_step2 ) {
+          printf("Can't open file\n");
+          return 0;
+        }
+        infixe(a, fp_step2 );
+
+        fclose(fp_step2 );
+
     }
     return 0;
 }
+
