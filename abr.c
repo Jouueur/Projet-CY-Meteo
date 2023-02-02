@@ -1,22 +1,35 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "abr.h"
+#include "global_defs.h"
 
-pabr creerABR(struct Station a){
+pabr creerABR(Station a){
     pabr c = malloc(sizeof(pabr)*6);
     if(c == NULL) exit(1);
     c->elt = a;
     c->droit = NULL;
-    c->gauche = NULL;  
+    c->gauche = NULL;
 
     return c;
 }
 
 
-pabr insertABR(pabr a, struct Station st){
+pabr insertABR(pabr a, Station st){
     if(a == NULL){
         a=creerABR(st);
     }
+
+    else if (a->elt.codes == st.codes){
+        if(a->elt.min > st.min && st.min != 0.000000) a->elt.min = st.min;
+        if(a->elt.max < st.max && st.max != 0.000000) a->elt.max = st.max;
+
+        if(a->elt.min > st.avg ) a->elt.min = st.avg;
+        if(a->elt.max < st.avg ) a->elt.max = st.avg;
+
+        // moyenne challah
+
+    }
+
     else if(a->elt.codes > st.codes){
         a->gauche = insertABR(a->gauche,st);
     }
@@ -26,34 +39,9 @@ pabr insertABR(pabr a, struct Station st){
     return a;
 }
 
-void duplicateABR(pabr a, struct Station val){
-
-    if (a == NULL){
-        a = insertABR(a,val);
-    }
-
-    else if (a->elt.codes == val.codes){
-        if(a->elt.min > val.min && val.min != 0.000000) a->elt.min = val.min;
-        if(a->elt.max < val.max && val.max != 0.000000) a->elt.max = val.max;
-
-        if(a->elt.min > val.avg ) a->elt.min = val.avg;
-        if(a->elt.max < val.avg ) a->elt.max = val.avg;
-
-        // moyenne challah
-
-    }
-
-
-    else if (a->elt.codes > val.codes)
-        duplicateABR (a->gauche,val);
-    else if (a->elt.codes < val.codes)
-        duplicateABR (a->droit,val);
-}
-
-
 
 void infixeABR(pabr a, FILE* fp){
-    if (a == NULL){
+    if (a != NULL){
         infixeABR(a->gauche,fp);
         fprintf(fp, "%d, %f, %f, %f\n", a->elt.codes, a->elt.avg, a->elt.min, a->elt.max);
         infixeABR(a->droit,fp);
@@ -61,9 +49,9 @@ void infixeABR(pabr a, FILE* fp){
 
 }
 
-
-
-
-
-
-
+void freeABR(pabr root) {
+    if (root == NULL) return;
+    freeABR(root->gauche);
+    freeABR(root->droit);
+    free(root);
+}
