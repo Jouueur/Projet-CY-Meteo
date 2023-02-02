@@ -18,8 +18,8 @@ typedef struct ABR{
 typedef ArbreBR* pabr;
 
 pabr creerABR(Station a);
-pabr insertABR(pabr a, Station e);
-void duplicateABR(pabr a, Station val);
+pabr insertABR(pabr a, Station st);
+pabr duplicateABR(pabr a, Station val);
 void infixeABR(pabr a, FILE* fp);
 
 #endif //ABR_H
