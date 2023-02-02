@@ -2,38 +2,60 @@
 #include <stdlib.h>
 #include "abr.h"
 
-pabr creerarbre(Station *a){
-    pabrc = malloc(sizeof(Arbre));
+pabr creerABR(struct Station a){
+    pabr c = malloc(sizeof(pabr));
     if(c == NULL) exit(1);
     c->elt = a;
-
-
     c->droit = NULL;
     c->gauche = NULL;  
 
     return c;
-} 
-
-int recherche(pabr a, int e){
-    
-    if(a == NULL)return 0;
-    else if(a->elt == e)return 1;
-    else if(e < a->elt)recherche(a->gauche,e);
-    else recherche(a->gauche,e);   
 }
 
 
-pabr insertABR(pabr a, int e){
+pabr insertABR(pabr a, struct Station st){
     if(a == NULL){
-        a=creerarbre(e);
+        a=creerABR(st);
     }
-    else if(a->elt > e){
-        a->gauche = insertABR(a->gauche,e);
+    else if(a->elt.codes > st.codes){
+        a->gauche = insertABR(a->gauche,st);
     }
-    else if(a->elt < e){
-        a->droit = insertABR(a->droit,e);
+    else if(a->elt.codes < st.codes){
+        a->droit = insertABR(a->droit,st);
     }
     return a;
+}
+
+void duplicate(pabr a, struct Station val){
+
+    if (a == NULL){
+        a = insertABR(a,val);
+    }
+
+    else if (a->elt.codes == val.codes){
+        if(a->elt.min > val.min && val.min != 0.000000) a->elt.min = val.min;
+        if(a->elt.max < val.max && val.max != 0.000000) a->elt.max = val.max;
+
+        if(a->elt.min > val.avg ) a->elt.min = val.avg;
+        if(a->elt.max < val.avg ) a->elt.max = val.avg;
+
+        // moyenne challah
+
+    }
+
+
+    else if (a->elt.codes > val.codes)
+        duplicate (a->gauche,val);
+    else if (a->elt.codes < val.codes)
+        duplicate (a->droit,val);
+}
+
+
+
+void infixe(pabr a, FILE* fp){
+    infixe(a->gauche,fp);
+    fprintf(fp, "%d, %f, %f, %f\n", a->elt.codes, a->elt.avg, a->elt.min, a->elt.max);
+    infixe(a->droit,fp);
 }
 
 

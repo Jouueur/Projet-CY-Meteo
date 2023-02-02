@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdbool.h>
 #include <getopt.h>
 #include "avl.h"
 
@@ -63,27 +62,27 @@ int main(){
             char* value = strtok(buffer, ", ");
 
            
-            int avg=0;
-            int min=0;
-            int max=0;
+            float avg=0;
+            float min=0;
+            float max=0;
             int code=0;
 
             while (value) {
 
-              switch (column) {
-                case 0 :
-                  code=atoi(value);
-                  //printf("[INFO] Column 1 %d  ", atoi(value));
-                case 1 :
-                  avg=atof(value);
-                  //printf("[INFO] Column 2 %f  ", atof(value));
-                case 2 :
-                  min=atof(value);
-                  //printf("[INFO] Column 3 %f  ", atof(value));
-                case 3 :
-                  max=atof(value);
-                  //printf("[INFO] Column 4 %f  ", atof(value));
-              }
+                switch (column) {
+                    case 0 :
+                        code=atoi(value);
+                        //printf("[INFO] Column 1 %d  ", atoi(value));
+                    case 1 :
+                        avg=atof(value);
+                        //printf("[INFO] Column 2 %f  ", atof(value));
+                    case 2 :
+                        min=atof(value);
+                        //printf("[INFO] Column 3 %f  ", atof(value));
+                    case 3 :
+                        max=atof(value);
+                        //printf("[INFO] Column 4 %f  ", atof(value));
+                }
 
               
 

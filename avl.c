@@ -1,8 +1,7 @@
-
+#include <stdio.h>
+#include <stdlib.h>
 #include "avl.h"
 
-
-// Sort by AVL
 
 pavl creer(struct Station x){
     pavl c = malloc(sizeof(pavl));
@@ -95,10 +94,6 @@ pavl insertAVL(pavl a, struct Station st, int* h){
     }
     return a;
 }
-
-
-
-
 
 void duplicate(pavl a, struct Station val){
     
