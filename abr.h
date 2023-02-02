@@ -11,8 +11,8 @@
 
 typedef struct ABR{
     Station elt;
-    struct ABR *droit;
-    struct ABR *gauche;
+    struct ABR *right;
+    struct ABR *left;
 } ArbreBR;
 
 typedef ArbreBR* pabr;
