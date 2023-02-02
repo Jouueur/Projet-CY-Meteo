@@ -7,13 +7,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
-struct sta{
-    int codes;
-    float avg, min, max;
-};
-
-typedef struct sta Station;
+#include "global_defs.h"
 
 typedef struct AVL{
     int eq;
@@ -29,7 +23,6 @@ pavl rotgauche(pavl a);
 pavl doubleg(pavl a);
 pavl doubled(pavl a);
 pavl equilibrer(pavl a);
-pavl duplicateAVL(pavl a, Station val);
 pavl insertAVL(pavl a, Station st, int* h);
 void infixeAVL(pavl a, FILE* fp);
 
