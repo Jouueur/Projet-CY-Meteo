@@ -5,36 +5,14 @@
 #include "abr.h"
 #include "global_defs.h"
 
-// Les valeurs de retour possibles du programme
-/*enum {
+
+enum {
   SUCCESS = 0,
   ERROR_OPTION = 1,
   ERROR_INPUT_FILE = 2,
   ERROR_OUTPUT_FILE = 3,
   ERROR_OTHER = 4
 };
-
-int main()
-{
-        FILE *gp;
-        //define GNUPLOT_PATH "/usr/bin/gnuplot"
-        gp = popen(!/usr/bin/gnuplot, "w");
-        if(gp == NULL){
-            fprintf(stderr, "Oops, I can't find %s.", "/usr/bin/gnuplot");
-             exit(EXIT_FAILURE);
-        }
-        fprintf(gp, "cd '~/Desktop'\n load \"config\"\n");
-          fflush(gp); 
-          getchar();
-          pclose(gp);
- 
-exit(SUCCESS);
-}  */
-
-
-
-
-
 
 
 #define MAX_LEN 1024
@@ -51,16 +29,22 @@ exit(SUCCESS);
 #endif
 
 
-int main(){
 
-    FILE* fp = fopen("step_1.csv", "r");
+int main(int argc, char const *argv[]){
 
-    if (!fp)
+    int sort= atoi(argv[1]);
+    const char* file1 = argv[2];
+    int temp_option = atoi(argv[3]);
+   
+
+    FILE* fp = fopen(file1,"r");
+    
+    if (!fp){
         printf("[ERROR] Can't open file\n");
-
+        return ERROR_INPUT_FILE;
+    }
     else {
         char buffer[MAX_LEN];
-
         int row = 0;
         int column = 0;
 
@@ -82,11 +66,14 @@ int main(){
 
             if (row == 1)
                 continue;
-
+                
+            
             char* value = strtok(buffer, ", ");
 
+            
 
             while (value) {
+                
 
                 switch (column) {
                     case 0 :
@@ -109,13 +96,15 @@ int main(){
                         break;
                     default:
                         printf("[ERROR] Swtich");
-                        break;
+                        return ERROR_OTHER;
                 }
                 value = strtok(NULL, ", ");
                 column++;
+                
             }
-
+            
             Station st = {
+                    .total = 1,
                     .codes = code,
                     .avg = avg,
                     .min = min,
@@ -127,10 +116,15 @@ int main(){
 #endif
 
 #ifdef ABR_METHOD
-            a = insertABR(a,st);
+            if(temp_option == 1){
+                a = insertt1ABR(a,st);
+            }
+            
+            if(temp_option == 4){
+                a = insertp1ABR(a,st);
+            }
 #endif
-
-            //printf("\n");
+   
         }
 
         fclose(fp);
