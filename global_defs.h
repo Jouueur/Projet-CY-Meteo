@@ -9,7 +9,7 @@
 #include <stdlib.h>
 
 struct sta{
-    int codes;
+    int codes,total;
     float avg, min, max;
 };
 
