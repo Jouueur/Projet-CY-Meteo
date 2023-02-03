@@ -1,6 +1,4 @@
-//
-// Created by Marius on 14/12/22.
-//
+
 
 #ifndef AVL_H
 #define AVL_H
