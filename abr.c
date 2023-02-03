@@ -14,7 +14,25 @@ pabr creerABR(Station a){
 }
 
 
-pabr insertABR(pabr a, Station st){
+pabr insertp1ABR(pabr a, Station st){
+    if(a == NULL){
+        a=creerABR(st);
+    }
+
+    else if (a->elt.codes == st.codes){
+        
+    }
+
+    else if(a->elt.codes > st.codes){
+        a->left = insertp1ABR(a->left,st);
+    }
+    else if(a->elt.codes < st.codes){
+        a->right = insertp1ABR(a->right,st);
+    }
+    return a;
+}
+
+pabr insertt1ABR(pabr a, Station st){
     if(a == NULL){
         a=creerABR(st);
     }
@@ -25,19 +43,18 @@ pabr insertABR(pabr a, Station st){
 
         if(a->elt.min > st.avg ) a->elt.min = st.avg;
         if(a->elt.max < st.avg ) a->elt.max = st.avg;
-
-        // moyenne challah
-
     }
 
     else if(a->elt.codes > st.codes){
-        a->left = insertABR(a->left,st);
+        a->left = insertt1ABR(a->left,st);
     }
     else if(a->elt.codes < st.codes){
-        a->right = insertABR(a->right,st);
+        a->right = insertt1ABR(a->right,st);
     }
     return a;
 }
+
+
 
 
 void infixeABR(pabr a, FILE* fp){
