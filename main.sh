@@ -3,9 +3,11 @@
 
 
 sort="1"
-region=""
+region="ALL"
 f_count=0
+o_count=0
 file=""
+output_file=""
 
 op=(-p1 -p2 -p3 -t1 -t2 -t3 -w -h -m)
 reg=(-F -G -S -A -O -Q)
@@ -15,8 +17,8 @@ sort=(--abr --avl --tab)
 reg_count=0
 sort_count=0
 count=0
-
 f_finder=0
+o_finder=0
 
 op_values=()
 for x in "$@"
@@ -59,6 +61,22 @@ do
         echo "Error: Argument after -f is not a csv file"
         exit 1
       fi
+
+
+    elif [[ $x == "-o" ]]; then
+    # Set the flag if -f option is encountered 
+    ((o_count++))
+    o_finder=1
+    elif [[ $o_finder -eq 1 ]]; then
+      # Check if the next argument after -f is a csv file
+      if [[ $x == *.csv ]]; then
+        output_file=$x
+        # Reset the flag
+        o_finder=0
+      else
+        echo "Error: Argument after -o is not a csv file"
+        exit 1
+      fi
     elif [[ $x == "--help" ]]; then
       cat help.txt
       exit 1
@@ -79,6 +97,16 @@ fi
 
 if [[ $f_count -ne 1 ]]; then
   echo "Error: You need exactly one -f option"
+  exit 1
+fi
+
+if [[ $o_finder -eq 1 ]]; then
+  echo "Error: -0 option must be followed by a csv file"
+  exit 1
+fi
+
+if [[ $o_count -ne 1 ]]; then
+  echo "Error: You need exactly one -o option"
   exit 1
 fi
 
@@ -118,14 +146,25 @@ done
 # Print op1 variable
 echo "op1 = $op1_values"
 echo "sort = $sort"
+echo
+
 
 
 chmod 755 sender.sh
 for x in "${op1_values[@]}"
 do
-  ./sender.sh $region $x $file
+  ./sender.sh $x $file $sort $region $output_file
   op1_values=( "${op1_values[@]:1}" )
+
+  if [ $x == p1 ]; then
+    ./p1.gp
+  fi
+  if [ $x == t1 ]; then
+    ./t1.gp
+  fi
 done
+
+
 
 
 
