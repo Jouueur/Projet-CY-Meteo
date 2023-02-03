@@ -12,6 +12,10 @@ abr.o : abr.c
 
 avl.o : avl.c
 	gcc -c avl.c -o $(BIN_DIR)avl.o -lm
+	
+linkedlist.o : linkedlist.c
+	gcc -c linkedlist.c -o $(BIN_DIR)linkedlist.o -lm
+
 
 clean :
 	rm ./bin/*.o
