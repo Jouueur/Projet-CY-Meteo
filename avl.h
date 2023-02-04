@@ -8,20 +8,17 @@
 #include "global_defs.h"
 
 typedef struct AVL{
-    int eq;
-    Station elt;
+    int eq,height;
+    Station st;
     struct AVL *right,*left;
 }ArbreVL;
 
 typedef ArbreVL *pavl;
 
 
-pavl rotdroite(pavl a);
-pavl rotgauche(pavl a);
-pavl doubleg(pavl a);
-pavl doubled(pavl a);
-pavl equilibrer(pavl a);
-pavl insertAVL(pavl a, Station st, int* h);
+int height(pavl N);
+pavl insertt1AVL(pavl a, Station st);
+pavl insertp1AVL(pavl a, Station st);
 void infixeAVL(pavl a, FILE* fp);
 
 #endif //AVL_H
