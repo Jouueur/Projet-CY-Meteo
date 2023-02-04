@@ -1,7 +1,6 @@
-#include <stdio.h>
-#include <stdlib.h>
+
 #include "abr.h"
-#include "global_defs.h"
+
 
 pabr creerABR(Station a){
     pabr c = malloc(sizeof(pabr)*6);
@@ -18,9 +17,14 @@ pabr insertp1ABR(pabr a, Station st){
     if(a == NULL){
         a=creerABR(st);
     }
-
+    // verify duplicates station, stock min, max and calculate the average
     else if (a->elt.codes == st.codes){
-        
+        if (a->elt.min > st.avg && st.avg != 0.000000) a->elt.min = st.avg;
+        if (a->elt.max < st.avg && st.avg != 0.000000) a->elt.max = st.avg;
+        a->elt.avg = a->elt.avg * a->elt.total;
+        a->elt.avg = a->elt.avg + st.avg;
+        a->elt.total += 1;
+        a->elt.avg = a->elt.avg / a->elt.total;
     }
 
     else if(a->elt.codes > st.codes){
@@ -36,13 +40,17 @@ pabr insertt1ABR(pabr a, Station st){
     if(a == NULL){
         a=creerABR(st);
     }
-
+    // verify duplicates station, stock min, max and calculate the average
     else if (a->elt.codes == st.codes){
-        if(a->elt.min > st.min && st.min != 0.000000) a->elt.min = st.min;
-        if(a->elt.max < st.max && st.max != 0.000000) a->elt.max = st.max;
+        if(a->elt.min > st.avg && st.avg != 0.000000) a->elt.min = st.avg;
+        if(a->elt.max < st.avg && st.avg != 0.000000) a->elt.max = st.avg;
 
         if(a->elt.min > st.avg ) a->elt.min = st.avg;
         if(a->elt.max < st.avg ) a->elt.max = st.avg;
+        a->elt.avg = a->elt.avg * a->elt.total;
+        a->elt.avg = a->elt.avg + st.avg;
+        a->elt.total += 1;
+        a->elt.avg = a->elt.avg / a->elt.total;
     }
 
     else if(a->elt.codes > st.codes){
@@ -57,11 +65,11 @@ pabr insertt1ABR(pabr a, Station st){
 
 
 
-void infixeABR(pabr a, FILE* fp){
+void infixeABR(pabr a, FILE* fp, int* linenumber){
     if (a != NULL){
-        infixeABR(a->left,fp);
-        fprintf(fp, "%d, %f, %f, %f\n", a->elt.codes, a->elt.avg, a->elt.min, a->elt.max);
-        infixeABR(a->right,fp);
+        infixeABR(a->left,fp,linenumber);
+        fprintf(fp, "%d, %f, %f, %f, %d\n", a->elt.codes, a->elt.avg, a->elt.min, a->elt.max,(*linenumber)++);
+        infixeABR(a->right,fp,linenumber);
     }
 
 }
