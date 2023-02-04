@@ -1,13 +1,11 @@
 #!/bin/bash 
 
-
-
 sort="1"
 region="ALL"
 f_count=0
 o_count=0
 file=""
-output_file=""
+output_file="last.csv"
 
 op=(-p1 -p2 -p3 -t1 -t2 -t3 -w -h -m)
 reg=(-F -G -S -A -O -Q)
@@ -101,14 +99,10 @@ if [[ $f_count -ne 1 ]]; then
 fi
 
 if [[ $o_finder -eq 1 ]]; then
-  echo "Error: -0 option must be followed by a csv file"
+  echo "Error: -o option must be followed by a csv file"
   exit 1
 fi
 
-if [[ $o_count -ne 1 ]]; then
-  echo "Error: You need exactly one -o option"
-  exit 1
-fi
 
 
 
@@ -133,7 +127,7 @@ do
     -S) region="Spm";;
     -A) region="Antilles";;
     -O) region="Oceanindien";;
-    -Q) region="Antarctique";;
+    -Q) region="Antartique";;
     # Set sort variable based on command line argument
     --avl) sort="1";;
     --abr) sort="2";;    
@@ -141,13 +135,6 @@ do
   esac
   shift
 done
-
-
-# Print op1 variable
-echo "op1 = $op1_values"
-echo "sort = $sort"
-echo
-
 
 
 chmod 755 sender.sh
@@ -158,11 +145,14 @@ do
 
   if [ $x == p1 ]; then
     ./p1.gp
-  fi
-  if [ $x == t1 ]; then
+  elif [ $x == t1 ]; then
     ./t1.gp
   fi
 done
+
+
+
+
 
 
 
