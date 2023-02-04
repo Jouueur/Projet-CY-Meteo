@@ -1,22 +1,15 @@
 #!/usr/bin/gnuplot
 
 set terminal pngcairo
-set output 't1.png'
-
+set output 'p1.png'
 
 set datafile separator ","
 
+set title "Pressure  1 MAP"
 
-set title "T1 MAP "
-set xlabel "latitude"
-set yrange [-20 : 50]
+set xlabel "$1"
 
-set xlabel "station"
-set xrange [7005 : 7790]
+set nokey
+Shadecolor = "#80E0A080"
 
-
-
-set ylabel "temp"
-
-
-plot "step_2.csv" using 1:2:3:4 with yerrorlines
+plot "step_2.csv" using 1:3:4 with filledcurve fc rgb Shadecolor title "Shaded error region", "step_2.csv" using 1:2 smooth mcspline lw 2
