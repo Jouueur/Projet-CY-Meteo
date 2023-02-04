@@ -144,8 +144,10 @@ do
   op1_values=( "${op1_values[@]:1}" )
 
   if [ $x == p1 ]; then
+    chmod 755 p1.gp
     ./p1.gp
   elif [ $x == t1 ]; then
+    chmod 755 t1.gp
     ./t1.gp
   fi
 done
