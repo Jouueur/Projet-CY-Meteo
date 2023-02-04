@@ -8,6 +8,7 @@ set datafile separator ","
 set title "Pressure  1 MAP"
 
 set xlabel "Staion number"
+set ylabel "Temperature"
 
 set nokey
 Shadecolor = "#80E0A080"
