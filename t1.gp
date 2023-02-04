@@ -1,11 +1,11 @@
 #!/usr/bin/gnuplot
 
 set terminal pngcairo
-set output 'p1.png'
+set output 't1.png'
 
 set datafile separator ","
 
-set title "Pressure  1 MAP"
+set title "Temperature  1 MAP"
 
 set xlabel "Staion number"
 set ylabel "Temperature"
