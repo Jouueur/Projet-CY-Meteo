@@ -16,16 +16,22 @@ if [ "$temp_option" == "wind" ]; then
   param2=5
   param3=10
   param4=11
+  echo "The $temp_option argument isn't implemented yet :("
+  exit 1
 elif [ "$temp_option" == "height" ]; then
   param1=1
   param2=15
   param3=10
   param4=11
+  echo "The $temp_option argument isn't implemented yet :("
+  exit 1
 elif [ "$temp_option" == "moisture" ]; then
   param1=1
   param2=6
   param3=10
   param4=11
+  echo "The $temp_option argument isn't implemented yet :("
+  exit 1
 elif [ "$temp_option" == "t1" ]; then
   param1=1  
   param2=12
@@ -37,11 +43,15 @@ elif [ "$temp_option" == "t2" ]; then
   param2=12
   param3=20
   param4=21
+  echo "The $temp_option argument isn't implemented yet :("
+  exit 1
 elif [ "$temp_option" == "t3" ]; then
   param1=12
   param2=13
   param3=14
   param4=1
+  echo "The $temp_option argument isn't implemented yet :("
+  exit 1
 elif [ "$temp_option" == "p1" ]; then
   param1=1
   param2=7
@@ -53,11 +63,15 @@ elif [ "$temp_option" == "p2" ]; then
   param2=3
   param3=7
   param4=8
+  echo "The $temp_option argument isn't implemented yet :("
+  exit 1
 elif [ "$temp_option" == "p3" ]; then
   param1=1
   param2=3
   param3=7
   param4=8
+  echo "The $temp_option argument isn't implemented yet :("
+  exit 1
 fi
 
 # Ocean indien  -22.344167 40.340667 / -15.887667 54.520667 / -17.054667 42.712 / -49.352333 70.243333 / -37.795167 77.569167
@@ -97,6 +111,10 @@ fi
 
 make
 ./main-project $sort filtred.csv $temp_option $output_file 
+
+
+
+
 
 
 
