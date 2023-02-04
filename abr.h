@@ -1,7 +1,3 @@
-//
-// Created by Marius on 14/12/22.
-//
-
 #ifndef ABR_H
 #define ABR_H
 
@@ -18,8 +14,9 @@ typedef struct ABR{
 typedef ArbreBR* pabr;
 
 pabr creerABR(Station a);
-pabr insertABR(pabr a, Station st);
-pabr duplicateABR(pabr a, Station val);
-void infixeABR(pabr a, FILE* fp);
+pabr insertp1ABR(pabr a, Station st);
+pabr insertt1ABR(pabr a, Station st);
+void infixeABR(pabr a, FILE* fp, int *linenumber);
 
 #endif //ABR_H
+
