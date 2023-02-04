@@ -8,10 +8,10 @@ region=$4
 
 
 if [ "$sort" == 1 ]; then
-  echo "The sort method: $sort isn't implemented yet :("
+  echo "The sort method: avl isn't implemented yet :("
   exit 1
 elif [ "$sort" == 3 ]; then
-  echo "The sort method: $sort isn't implemented yet :("
+  echo "The sort method: tab isn't implemented yet :("
   exit 1
 fi
 
