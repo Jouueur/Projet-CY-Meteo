@@ -7,9 +7,15 @@ sort=$3
 region=$4
 
 
-echo $1 $2 $3 $4
+if [ "$sort" == 1 ]; then
+  echo "The sort method: $sort isn't implemented yet :("
+  exit 1
+elif [ "$sort" == 3 ]; then
+  echo "The sort method: $sort isn't implemented yet :("
+  exit 1
+fi
 
-echo $output_file
+
 # Set values of choosed columns based on the option
 if [ "$temp_option" == "wind" ]; then
   param1=4
