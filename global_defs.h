@@ -1,7 +1,3 @@
-//
-// Created by Marius on 02/02/23.
-//
-
 #ifndef GLOBAL_DEFS_H
 #define GLOBAL_DEFS_H
 
@@ -17,4 +13,5 @@ typedef struct sta Station;
 
 
 #endif //GLOBAL_DEFS_H
+
 
