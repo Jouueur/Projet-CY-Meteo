@@ -7,7 +7,7 @@ set datafile separator ","
 
 set title "Pressure  1 MAP"
 
-set xlabel "$1"
+set xlabel "Staion number"
 
 set nokey
 Shadecolor = "#80E0A080"
