@@ -3,6 +3,7 @@
 #include <string.h>
 #include <getopt.h>
 #include "abr.h"
+#include "avl.h"
 #include "global_defs.h"
 
 
@@ -35,7 +36,8 @@ int main(int argc, char const *argv[]){
     int sort= atoi(argv[1]);
     const char* file1 = argv[2];
     int temp_option = atoi(argv[3]);
-   
+    
+    
 
     FILE* fp = fopen(file1,"r");
     
@@ -104,11 +106,10 @@ int main(int argc, char const *argv[]){
             }
             
             Station st = {
-                    .total = 1,
                     .codes = code,
                     .avg = avg,
-                    .min = min,
-                    .max = max,
+                    .min = avg,
+                    .max = avg,
             };
 
 #ifdef AVL_METHOD
@@ -138,9 +139,9 @@ int main(int argc, char const *argv[]){
 #ifdef AVL_METHOD
         infixeAVL(a, fp_step2);
 #endif
-
+    int linenumber = 1;
 #ifdef ABR_METHOD
-        infixeABR(a, fp_step2);
+        infixeABR(a, fp_step2,&linenumber);
 #endif
 
         fclose(fp_step2);
