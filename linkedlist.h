@@ -1,7 +1,3 @@
-//
-// Created by Marius on 03/02/23.
-//
-
 #ifndef PROJET_CY_METEO_LINKEDLIST_H
 #define PROJET_CY_METEO_LINKEDLIST_H
 
